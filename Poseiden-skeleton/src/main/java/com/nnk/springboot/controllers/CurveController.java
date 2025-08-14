@@ -1,6 +1,10 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.CurvePoint;
+import com.nnk.springboot.services.CurveService;
+import com.nnk.springboot.services.UserService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,12 +17,18 @@ import javax.validation.Valid;
 
 @Controller
 public class CurveController {
-    // TODO: Inject Curve Point service
+
+	@Autowired
+	private CurveService curveService;
+	@Autowired
+	private UserService userService;
 
     @RequestMapping("/curvePoint/list")
     public String home(Model model)
     {
-        // TODO: find all Curve Point, add to model
+        model.addAttribute("curvePoints", curveService.getAllCurvePointFromUser());
+        model.addAttribute("remoteUser", userService.getCurrentUser());
+
         return "curvePoint/list";
     }
 
@@ -30,6 +40,14 @@ public class CurveController {
     @PostMapping("/curvePoint/validate")
     public String validate(@Valid CurvePoint curvePoint, BindingResult result, Model model) {
         // TODO: check data valid and save to db, after saving return Curve list
+    	try {
+    		if(!result.hasErrors()) {
+    			curveService.validate(curvePoint);
+    		return "redirect:/curvePoint/list";
+    		}
+    	}catch (Exception e) {
+    		System.out.println(e);
+    	}
         return "curvePoint/add";
     }
 
