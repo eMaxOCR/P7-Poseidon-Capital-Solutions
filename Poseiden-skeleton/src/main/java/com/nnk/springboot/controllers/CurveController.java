@@ -39,16 +39,12 @@ public class CurveController {
 
     @PostMapping("/curvepoint/validate")
     public String validateCurvePoint(@Valid CurvePoint curvePoint, BindingResult result, Model model) {
-        // TODO: check data valid
-    	try {
-    		if(!result.hasErrors()) {
-    			curveService.validate(curvePoint);
-    		return "redirect:/curvepoint/list";
-    		}
-    	}catch (Exception e) {
-    		System.out.println(e);
-    	}
-        return "curvepoint/add";
+        if (result.hasErrors()) {
+            return "curvepoint/add";
+        }
+
+        curveService.validate(curvePoint); 
+        return "redirect:/curvepoint/list";
     }
 
     @GetMapping("/curvepoint/update/{id}")

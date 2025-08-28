@@ -1,28 +1,17 @@
 package com.nnk.springboot.services;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
-
-import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.domain.Rating;
-import com.nnk.springboot.domain.User;
-import com.nnk.springboot.repositories.CurvePointRepository;
 import com.nnk.springboot.repositories.RatingRepository;
 
 @Service
 public class RatingService {
 	
 	@Autowired
-	private UserService userService;
-	
-	@Autowired
 	private RatingRepository ratingRepository;
-	
-	
-	
+		
 	/**
 	 * Save Rating into data base
 	 * */
@@ -88,8 +77,9 @@ public class RatingService {
 		
 	}
 	
-	
-	
+	/**
+	 * Delete rating
+	 * */
 	public void deleteRating(Integer id) {
 		ratingRepository.deleteById(id);
 	}

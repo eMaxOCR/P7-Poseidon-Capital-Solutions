@@ -42,13 +42,13 @@ public class CurveService {
 		return curvePointRepository.findAll();
 	}
 	
-	/**
-	 * Search all curve points from user
-	 * */
-	public List<CurvePoint> getAllCurvePointFromUser(){
-		User currentUser = userService.getCurrentUser();
-		return curvePointRepository.findAllByUser(currentUser.getId());
-	}
+//	/**
+//	 * Search all curve points from user
+//	 * */
+//	public List<CurvePoint> getAllCurvePointFromUser(){
+//		User currentUser = userService.getCurrentUser();
+//		return curvePointRepository.findAllByUser(currentUser.getId());
+//	}
 	
 	/**
 	 * Making Curve Point and put informations before saving.

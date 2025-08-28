@@ -3,6 +3,8 @@ package com.nnk.springboot.domain;
 import java.time.LocalDateTime;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,14 +25,14 @@ public class CurvePoint {
     @GeneratedValue(strategy= GenerationType.AUTO)
 	private Integer id;
 	
-	@NotBlank(message = "Curve identification is mandatory")
+	@NotNull(message = "must not be null")
 	private Integer curveId;
 	
 	private LocalDateTime  asOfDate;
 	
 	private Double term;
 	
-	@NotBlank(message = "Value is mandatory")
+	@NotNull(message = "Value is mandatory")
 	private Double value;
 	
 	private LocalDateTime  creationDate;
