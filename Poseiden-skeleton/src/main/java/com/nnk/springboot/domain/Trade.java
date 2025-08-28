@@ -1,6 +1,7 @@
 package com.nnk.springboot.domain;
 
 import java.security.Timestamp;
+import java.time.LocalDateTime;
 
 //import javax.persistence.*;
 //import javax.validation.constraints.NotBlank;
@@ -29,15 +30,15 @@ public class Trade {
 	private Double buyPrice;
 	private Double sellPrice;
 	private String benchmark;
-	private Timestamp tradeDate;
+	private LocalDateTime tradeDate;
 	private String security;
 	private String status;
 	private String trader;
 	private String book;
 	private String creationName;
-	private Timestamp creationDate;
+	private LocalDateTime creationDate;
 	private String revisionName;
-	private Timestamp revisionDate;
+	private LocalDateTime revisionDate;
 	private String dealName;
 	private String dealType;
 	private String sourceListId;
