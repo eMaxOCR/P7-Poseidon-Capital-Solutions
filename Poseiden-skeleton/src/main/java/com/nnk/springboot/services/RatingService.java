@@ -44,53 +44,49 @@ public class RatingService {
 		return ratingRepository.findAll();
 	}
 	
-//	/**
-//	 * Making Curve Point and put informations before saving.
-//	 * */
-//	public CurvePoint validate(CurvePoint curvePoint){
-//		User currentUser = userService.getCurrentUser();
-//		curvePoint.setUser(currentUser);
-//		
-//		//Calculate creation date time.
-//		LocalDateTime now = LocalDateTime.now();
-//		curvePoint.setCreationDate(now);
-//		
-//		//Calculate term date
-//		curvePoint.setAsOfDate(now.plusHours(curvePoint.getTerm()));
-//		
-//		return save(curvePoint);
-//	}
+	/**
+	 * Making rating and put informations before saving.
+	 * */
+	public Rating validate(Rating rating){
+		
+		Rating newRating = new Rating();
+		
+		newRating.setFitchRating(rating.getFitchRating());
+		newRating.setMoodysRating(rating.getMoodysRating());
+		newRating.setOrderNumber(rating.getOrderNumber());
+		newRating.setSandPRating(rating.getSandPRating());
+		
+		return save(rating);
+	}
 	
-//	/**
-//	 * Update Curve Point.
-//	 * @Param curvepoint
-//	 * */
-//	public void update(CurvePoint curvePoint){
-//		CurvePoint newCurvePointInfo = curvePoint;								//This curvePoint contain new informations
-//		CurvePoint currentCurvePoint = getCurvePointById(curvePoint.getId());	//This curvePoint have "old" informations
-//		
-//		//Checking for curve id
-//		if(newCurvePointInfo.getCurveId() != currentCurvePoint.getCurveId()) {
-//			currentCurvePoint.setCurveId(curvePoint.getCurveId());
-//		}
-//		
-//		//Checking for term
-//		if(newCurvePointInfo.getTerm() != currentCurvePoint.getTerm()) {
-//			currentCurvePoint.setAsOfDate(
-//					currentCurvePoint.getCreationDate().plusHours(curvePoint.getTerm())
-//					);
-//			currentCurvePoint.setTerm(curvePoint.getTerm());
-//		}
-//		
-//		//Checking for value
-//				if(newCurvePointInfo.getValue() != currentCurvePoint.getValue()) {
-//					currentCurvePoint.setValue(curvePoint.getValue());;
-//				}
-//		
-//		//Saving curve point's new informations
-//		save(currentCurvePoint);
-//		
-//	}
+	/**
+	 * Update Rating.
+	 * @Param Rating
+	 * */
+	public void update(Rating rating){
+		Rating newRating = rating;								//This rating contain new informations
+		Rating currentRating = getRatingById(rating.getId());	//This rating have "old" informations
+		
+		if(newRating.getFitchRating() != currentRating.getFitchRating()) {
+			currentRating.setFitchRating(newRating.getFitchRating());
+		}
+		
+		if(newRating.getMoodysRating() != currentRating.getMoodysRating()) {
+			currentRating.setMoodysRating(newRating.getMoodysRating());
+		}
+		
+		if(newRating.getSandPRating() != currentRating.getSandPRating()) {
+			currentRating.setSandPRating(newRating.getSandPRating());
+		}
+		
+		if(newRating.getOrderNumber() != currentRating.getOrderNumber()) {
+			currentRating.setOrderNumber(newRating.getOrderNumber());
+		}
+		
+		//Saving rating's new informations
+		save(currentRating);
+		
+	}
 	
 	
 	

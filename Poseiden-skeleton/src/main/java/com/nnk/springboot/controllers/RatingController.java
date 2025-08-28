@@ -40,26 +40,34 @@ public class RatingController {
 
     @PostMapping("/rating/validate")
     public String validate(@Valid Rating rating, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return Rating list
+    	//TODO : Add constraint : At least one of the 3 label has to be not null. + Order = unique ?
+    	try {
+    		if(!result.hasErrors()) {
+    			ratingService.validate(rating);
+    		return "redirect:/rating/list";
+    		}
+    	}catch (Exception e) {
+    		System.out.println(e);
+    	}
         return "rating/add";
     }
 
     @GetMapping("/rating/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get Rating by Id and to model then show to the form
+    	model.addAttribute("rating", ratingService.getRatingById(id));
         return "rating/update";
     }
 
     @PostMapping("/rating/update/{id}")
     public String updateRating(@PathVariable("id") Integer id, @Valid Rating rating,
                              BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Rating and return Rating list
+    	ratingService.update(rating);
         return "redirect:/rating/list";
     }
 
     @GetMapping("/rating/delete/{id}")
     public String deleteRating(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find Rating by Id and delete the Rating, return to Rating list
+    	ratingService.deleteRating(id);
         return "redirect:/rating/list";
     }
 }
