@@ -32,7 +32,7 @@ public class SpringSecurityAuthApplication {
 		}).formLogin(form -> form
 					//.loginPage("/login")						//Define custom web page connexion
 					.permitAll()								//All can see this page.
-					.defaultSuccessUrl("/home", true)		//Go to main web page when logged.
+					.defaultSuccessUrl("/curvepoint/list", true)		//Go to main web page when logged.
 					.failureUrl("/login?error=true")			//Go to error web page when error detected. 
 				)
 				.exceptionHandling(exceptions -> exceptions

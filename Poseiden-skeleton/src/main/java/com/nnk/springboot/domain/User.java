@@ -38,11 +38,11 @@ public class User {
     @NotBlank(message = "Role is mandatory")
     private String role;
     
-    @OneToMany(
-    		mappedBy = "user",			//User "user" from "Curve Point"
-    		cascade = CascadeType.ALL, 	//If user removed, remove curve points.
-    		fetch = FetchType.LAZY 		//Load only when asked.
-    		)
-    private List<CurvePoint> curvePoints;
+//    @OneToMany(
+//    		mappedBy = "user",			//User "user" from "Curve Point"
+//    		cascade = CascadeType.ALL, 	//If user removed, remove curve points.
+//    		fetch = FetchType.LAZY 		//Load only when asked.
+//    		)
+//    private List<CurvePoint> curvePoints;
         
 }

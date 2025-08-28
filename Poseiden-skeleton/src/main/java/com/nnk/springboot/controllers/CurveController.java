@@ -23,50 +23,50 @@ public class CurveController {
 	@Autowired
 	private UserService userService;
 
-    @RequestMapping("/curvePoint/list")
-    public String home(Model model)
+    @RequestMapping("/curvepoint/list")
+    public String curvePointList(Model model)
     {
-        model.addAttribute("curvePoints", curveService.getAllCurvePointFromUser());
+        model.addAttribute("curvePoints", curveService.getAllCurvePoint());
         model.addAttribute("remoteUser", userService.getCurrentUser());
 
-        return "curvePoint/list";
+        return "curvepoint/list";
     }
 
-    @GetMapping("/curvePoint/add")
-    public String addBidForm(CurvePoint bid) {
-        return "curvePoint/add";
+    @GetMapping("/curvepoint/add")
+    public String showAddForm(CurvePoint bid) {
+        return "curvepoint/add";
     }
 
-    @PostMapping("/curvePoint/validate")
-    public String validate(@Valid CurvePoint curvePoint, BindingResult result, Model model) {
+    @PostMapping("/curvepoint/validate")
+    public String validateCurvePoint(@Valid CurvePoint curvePoint, BindingResult result, Model model) {
         // TODO: check data valid
     	try {
     		if(!result.hasErrors()) {
     			curveService.validate(curvePoint);
-    		return "redirect:/curvePoint/list";
+    		return "redirect:/curvepoint/list";
     		}
     	}catch (Exception e) {
     		System.out.println(e);
     	}
-        return "curvePoint/add";
+        return "curvepoint/add";
     }
 
-    @GetMapping("/curvePoint/update/{id}")
+    @GetMapping("/curvepoint/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
     	model.addAttribute("curvePoint", curveService.getCurvePointById(id));
-        return "curvePoint/update";
+        return "curvepoint/update";
     }
 
-    @PostMapping("/curvePoint/update/{id}")
-    public String updateBid(@PathVariable("id") Integer id, @Valid CurvePoint curvePoint,
+    @PostMapping("curvepoint/update/{id}")
+    public String updateCurvePoint(@PathVariable("id") Integer id, @Valid CurvePoint curvePoint,
                              BindingResult result, Model model) {
     	curveService.update(curvePoint);
-        return "redirect:/curvePoint/list";
+        return "redirect:/curvepoint/list";
     }
 
-    @GetMapping("/curvePoint/delete/{id}")
-    public String deleteBid(@PathVariable("id") Integer id, Model model) {
+    @GetMapping("curvepoint/delete/{id}")
+    public String deleteCurvePoint(@PathVariable("id") Integer id, Model model) {
     	curveService.deleteCurvePoint(id);
-        return "redirect:/curvePoint/list";
+        return "redirect:/curvepoint/list";
     }
 }

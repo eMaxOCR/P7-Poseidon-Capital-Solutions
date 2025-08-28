@@ -36,6 +36,13 @@ public class CurveService {
 	}
 	
 	/**
+	 * Search all curve points
+	 * */
+	public List<CurvePoint> getAllCurvePoint(){
+		return curvePointRepository.findAll();
+	}
+	
+	/**
 	 * Search all curve points from user
 	 * */
 	public List<CurvePoint> getAllCurvePointFromUser(){
@@ -47,15 +54,15 @@ public class CurveService {
 	 * Making Curve Point and put informations before saving.
 	 * */
 	public CurvePoint validate(CurvePoint curvePoint){
-		User currentUser = userService.getCurrentUser();
-		curvePoint.setUser(currentUser);
+//		User currentUser = userService.getCurrentUser();
+//		curvePoint.setUser(currentUser);
 		
 		//Calculate creation date time.
 		LocalDateTime now = LocalDateTime.now();
 		curvePoint.setCreationDate(now);
 		
-		//Calculate term date
-		curvePoint.setAsOfDate(now.plusHours(curvePoint.getTerm()));
+//		//Calculate term date
+//		curvePoint.setAsOfDate(now.plusHours(curvePoint.getTerm()));
 		
 		return save(curvePoint);
 	}
@@ -75,9 +82,11 @@ public class CurveService {
 		
 		//Checking for term
 		if(newCurvePointInfo.getTerm() != currentCurvePoint.getTerm()) {
-			currentCurvePoint.setAsOfDate(
-					currentCurvePoint.getCreationDate().plusHours(curvePoint.getTerm())
-					);
+			
+			//Empty because of lack of business requirement
+//			currentCurvePoint.setAsOfDate(
+//					currentCurvePoint.getCreationDate().plusHours(curvePoint.getTerm())
+//					);
 			currentCurvePoint.setTerm(curvePoint.getTerm());
 		}
 		

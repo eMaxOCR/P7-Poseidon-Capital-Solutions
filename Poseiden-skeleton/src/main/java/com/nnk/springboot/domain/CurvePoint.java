@@ -28,15 +28,15 @@ public class CurvePoint {
 	
 	private LocalDateTime  asOfDate;
 	
-	private int term;
+	private Double term;
 	
 	@NotBlank(message = "Value is mandatory")
 	private Double value;
 	
 	private LocalDateTime  creationDate;
 	
-	@ManyToOne //Many CurvePoint for in user
-	private User user;
+//	@ManyToOne //Many CurvePoint for in user
+//	private User user;
 
 	
 }
