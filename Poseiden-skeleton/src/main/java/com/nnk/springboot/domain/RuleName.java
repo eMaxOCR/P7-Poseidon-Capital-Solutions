@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 //import java.sql.Timestamp;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,6 +21,8 @@ public class RuleName {
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	Integer id;
+	
+	@NotBlank(message="Name is mandatory")
 	String name;
 	String description;
 	String json;

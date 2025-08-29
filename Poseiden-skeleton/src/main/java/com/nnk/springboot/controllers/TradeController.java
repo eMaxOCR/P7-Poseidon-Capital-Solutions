@@ -23,6 +23,9 @@ public class TradeController {
 	@Autowired
 	private UserService userService;
 
+	/**
+	 * Show trade list
+	 * */
     @RequestMapping("/trade/list")
     public String home(Model model)
     {
@@ -32,11 +35,17 @@ public class TradeController {
         return "trade/list";
     }
 
+    /**
+	 * Show trade's add form
+	 * */
     @GetMapping("/trade/add")
     public String addUser(Trade trade) {
         return "trade/add";
     }
 
+    /**
+	 * Add trade
+	 * */
     @PostMapping("/trade/validate")
     public String validate(@Valid Trade trade, BindingResult result, Model model) {
     	if (result.hasErrors()) {
@@ -47,12 +56,18 @@ public class TradeController {
         return "redirect:/trade/list";
     }
 
+    /**
+	 * Show trade's update form 
+	 * */
     @GetMapping("/trade/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
     	model.addAttribute("trade", tradeService.getTradeById(id));
         return "trade/update";
     }
 
+    /**
+	 * Update trade
+	 * */
     @PostMapping("/trade/update/{id}")
     public String updateTrade(@PathVariable("id") Integer id, @Valid Trade trade,
                              BindingResult result, Model model) {
@@ -61,6 +76,9 @@ public class TradeController {
         return "redirect:/trade/list";
     }
 
+    /**
+	 * Delete trade
+	 * */
     @GetMapping("/trade/delete/{id}")
     public String deleteTrade(@PathVariable("id") Integer id, Model model) {
     	tradeService.deleteTrade(id);

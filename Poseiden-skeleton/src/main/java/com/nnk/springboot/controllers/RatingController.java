@@ -22,6 +22,9 @@ public class RatingController {
 	@Autowired
 	private UserService userService;
 
+	/**
+	 * Show rating list
+	 * */
     @RequestMapping("/rating/list")
     public String home(Model model)
     {
@@ -31,38 +34,50 @@ public class RatingController {
         return "rating/list";
     }
 
+    /**
+	 * Show rating's add form
+	 * */
     @GetMapping("/rating/add")
     public String addRatingForm(Rating rating) {
         return "rating/add";
     }
-
+    
+    /**
+	 * Add rating
+	 * */
     @PostMapping("/rating/validate")
     public String validate(@Valid Rating rating, BindingResult result, Model model) {
-    	//TODO : Add constraint : At least one of the 3 label has to be not null. + Order = unique ?
-    	try {
-    		if(!result.hasErrors()) {
-    			ratingService.validate(rating);
-    		return "redirect:/rating/list";
-    		}
-    	}catch (Exception e) {
-    		System.out.println(e);
-    	}
+ 
+		if(!result.hasErrors()) {
+			ratingService.validate(rating);
+		return "redirect:/rating/list";
+		}
+
         return "rating/add";
     }
-
+    
+    /**
+	 * Show rating's update form
+	 * */
     @GetMapping("/rating/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
     	model.addAttribute("rating", ratingService.getRatingById(id));
         return "rating/update";
     }
 
+    /**
+	 * Update rating
+	 * */
     @PostMapping("/rating/update/{id}")
     public String updateRating(@PathVariable("id") Integer id, @Valid Rating rating,
                              BindingResult result, Model model) {
     	ratingService.update(rating);
         return "redirect:/rating/list";
     }
-
+    
+    /**
+	 * Delete rating
+	 * */
     @GetMapping("/rating/delete/{id}")
     public String deleteRating(@PathVariable("id") Integer id, Model model) {
     	ratingService.deleteRating(id);
