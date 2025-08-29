@@ -4,6 +4,8 @@ import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.services.CurveService;
 import com.nnk.springboot.services.UserService;
 
+import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,8 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.validation.Valid;
+//import javax.validation.Valid;
 
 @Controller
 public class CurveController {
@@ -40,7 +41,7 @@ public class CurveController {
     @PostMapping("/curvepoint/validate")
     public String validateCurvePoint(@Valid CurvePoint curvePoint, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return "curvepoint/add";
+            return "/curvepoint/add";
         }
 
         curveService.validate(curvePoint); 

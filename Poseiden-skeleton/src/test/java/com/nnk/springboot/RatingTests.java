@@ -1,6 +1,6 @@
 package com.nnk.springboot;
 
-import com.nnk.springboot.domain.Rating;
+import com.nnk.springboot.domain.Bid;
 import com.nnk.springboot.repositories.RatingRepository;
 import org.junit.Assert;
 import org.junit.Test;
@@ -21,7 +21,7 @@ public class RatingTests {
 
 	@Test
 	public void ratingTest() {
-		Rating rating = new Rating("Moodys Rating", "Sand PRating", "Fitch Rating", 10);
+		Bid rating = new Bid("Moodys Rating", "Sand PRating", "Fitch Rating", 10);
 
 		// Save
 		rating = ratingRepository.save(rating);
@@ -34,13 +34,13 @@ public class RatingTests {
 		Assert.assertTrue(rating.getOrderNumber() == 20);
 
 		// Find
-		List<Rating> listResult = ratingRepository.findAll();
+		List<Bid> listResult = ratingRepository.findAll();
 		Assert.assertTrue(listResult.size() > 0);
 
 		// Delete
 		Integer id = rating.getId();
 		ratingRepository.delete(rating);
-		Optional<Rating> ratingList = ratingRepository.findById(id);
+		Optional<Bid> ratingList = ratingRepository.findById(id);
 		Assert.assertFalse(ratingList.isPresent());
 	}
 }

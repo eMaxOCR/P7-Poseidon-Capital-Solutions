@@ -1,18 +1,11 @@
 package com.nnk.springboot.domain;
 
-import java.security.Timestamp;
-
-//import org.springframework.beans.factory.annotation.Required;
+import java.time.LocalDateTime;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-//import javax.persistence.*;
-//import javax.validation.constraints.Digits;
-//import javax.validation.constraints.NotBlank;
-//import java.sql.Date;
-//import java.sql.Timestamp;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,7 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "bidlist")
-public class BidList {
+public class Bid {
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	private Integer BidListId;
@@ -31,16 +24,16 @@ public class BidList {
 	private Double bid;
 	private Double ask;
 	private String benchmark;
-	private Timestamp bidListDate;
+	private LocalDateTime bidListDate;
 	private String commentary;
 	private String security;
 	private String status;
 	private String trader;
 	private String book;
 	private String creationName;
-	private Timestamp creationDate;
+	private LocalDateTime creationDate;
 	private String revisionName;
-	private Timestamp revisionDate;
+	private LocalDateTime revisionDate;
 	private String dealName;
 	private String dealType;
 	private String sourceListId;
