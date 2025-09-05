@@ -28,7 +28,7 @@ public class User {
     @NotBlank(message = "FullName is mandatory")
     private String fullname;
     
-    @NotBlank(message = "Role is mandatory")
+    //@NotBlank(message = "Role is mandatory")
     private String role;
     
 //    @OneToMany(

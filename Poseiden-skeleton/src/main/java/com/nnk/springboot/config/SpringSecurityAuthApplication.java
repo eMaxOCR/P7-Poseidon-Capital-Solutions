@@ -22,15 +22,15 @@ public class SpringSecurityAuthApplication {
 	/**
 	 * Configuration bean that defines the entire security behavior of your application.
 	 * It's like a director
-	 * */
+	 * */ 
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 		return http.authorizeHttpRequests(auth -> {
-			//auth.requestMatchers("/admin").hasRole("ADMIN"); 	//Define admin and his role
-			//auth.requestMatchers("/user").hasRole("USER");		//Define user and his role
-			auth.requestMatchers("/app/login", "/403", "/404", "/css/**", "/js/**", "/images/**", "/error").permitAll();
+			auth.requestMatchers("/admin").hasRole("ADMIN"); 	//Define admin and his role
+			auth.requestMatchers("/user").hasRole("USER");		//Define user and his role
+			auth.requestMatchers("/app/signup", "/app/login", "/403", "/404", "/css/**", "/js/**", "/images/**", "/error").permitAll();
 			auth.anyRequest().authenticated(); 					//for http"s".
 		}).formLogin(form -> form
-					//.loginPage("/login")						//Define custom web page connexion
+				    .loginPage("/app/login")						//Define custom web page connexion
 					.permitAll()								//All can see this page.
 					.defaultSuccessUrl("/curvepoint/list", true)		//Go to main web page when logged.
 					.failureUrl("/login?error=true")			//Go to error web page when error detected. 
@@ -40,7 +40,7 @@ public class SpringSecurityAuthApplication {
 			        )
 				.logout(logout -> logout
 			            .permitAll()
-			            .logoutSuccessUrl("/login?logout=true") // Redirige vers la page de connexion avec un paramètre de déconnexion après la déconnexion
+			            .logoutSuccessUrl("/app/login") 			// Redirige vers la page de connexion avec un paramètre de déconnexion après la déconnexion
 			        )
 				.build(); 										//Create login form page.
 	}
