@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,6 +13,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration 			//Spring detect this class has configuration class.
 @EnableWebSecurity 		//Enable web security.
+@EnableMethodSecurity   //Enable ROLE access
 public class SpringSecurityAuthApplication {
 	
 	@Autowired
@@ -27,7 +29,7 @@ public class SpringSecurityAuthApplication {
 		return http.authorizeHttpRequests(auth -> {
 			auth.requestMatchers("/admin").hasRole("ADMIN"); 	//Define admin and his role
 			auth.requestMatchers("/user").hasRole("USER");		//Define user and his role
-			auth.requestMatchers("/app/signup", "/app/login", "/403", "/404", "/css/**", "/js/**", "/images/**", "/error").permitAll();
+			auth.requestMatchers("/app/signup", "/app/login", "/401", "/403", "/404", "/500", "/css/**", "/js/**", "/images/**", "/error").permitAll();
 			auth.anyRequest().authenticated(); 					//for http"s".
 		}).formLogin(form -> form
 				    .loginPage("/app/login")						//Define custom web page connexion

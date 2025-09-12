@@ -18,6 +18,17 @@ public class HomeController
 	{
 		return "redirect:/bidList/list";
 	}
-
-
+	
+	@RequestMapping("/404")
+	public String error(Model model)
+	{
+		return "404";
+	}
+	
+	@RequestMapping("/500")
+	public String internalServeurError(Model model)
+	{
+		return "500";
+	}
+	
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class BidController {
@@ -30,6 +31,7 @@ public class BidController {
     @RequestMapping("/bidlist/list")
     public String home(Model model)
     {
+    	
     	model.addAttribute("bids", bidListService.getAllBids());
         model.addAttribute("remoteUser", userService.getCurrentUser());
         
@@ -84,4 +86,5 @@ public class BidController {
     	bidListService.deleteBid(id);
         return "redirect:/bidlist/list";
     }
+     
 }
