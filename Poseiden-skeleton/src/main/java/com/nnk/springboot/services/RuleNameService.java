@@ -1,19 +1,13 @@
 package com.nnk.springboot.services;
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.repositories.RuleNameRepository;
-
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 @Service
 @RequiredArgsConstructor
-//@Setter
-//@Getter
 public class RuleNameService {
 	
 	//@Autowired
@@ -21,44 +15,50 @@ public class RuleNameService {
 
 	
 	/**
-	 * Save RuleName into data base
-	 * @param RuleName
-	 * @return RuleName
-	 * */
+	 * Saves a rule to the database.
+	 *
+	 * @param ruleName the RuleName object to be saved.
+	 * @return the saved RuleName object.
+	 */
 	public RuleName save(RuleName ruleName){
 		return ruleNameRepository.save(ruleName);
 	}
 	
 	/**
-	 * Find RuleName by id
-	 * @param id
-	 * @return RuleName
-	 * */
+	 * Finds a rule by its ID.
+	 *
+	 * @param id the ID of the rule to find.
+	 * @return the found RuleName object.
+	 */
 	public RuleName getRuleNameById(Integer id){
 		return ruleNameRepository.getReferenceById(id);
 	}
 	
 	/**
-	 * Get all RuleName
-	 * @return List of RuleName
-	 * */
+	 * Finds all rules in the database.
+	 *
+	 * @return a list of all RuleName objects.
+	 */
 	public List<RuleName> getAllRuleName(){
 		return ruleNameRepository.findAll();
 	}
 	
 	/**
-	 * Making RuleName and put informations before saving.
-	 * @param RuleName 
-	 * @return RuleName
-	 * */
+	 * Prepares and validates a new rule before saving it.
+	 *
+	 * @param ruleName the RuleName object to be validated.
+	 * @return the validated RuleName object.
+	 */
 	public RuleName validate(RuleName ruleName){
 		return save(ruleName);
 	}
 	
 	/**
-	 * Update RuleName.
-	 * @Param RuleName
-	 * */
+	 * Updates an existing rule in the database.
+	 *
+	 * @param ruleName the RuleName object with the new information.
+	 * @return the updated and saved rule.
+	 */
 	public RuleName updateRuleName(RuleName ruleName){
 		RuleName newRuleName = ruleName;								//This curvePoint contain new informations
 		RuleName currentRuleName = getRuleNameById(ruleName.getId());	//This curvePoint have "old" informations
@@ -76,9 +76,10 @@ public class RuleNameService {
 	
 	
 	/**
-	 * Delete RuleName
-	 * @param id
-	 * */
+	 * Deletes a rule from the database using its ID.
+	 *
+	 * @param id the ID of the rule to delete.
+	 */
 	public void deleteRuleName(Integer id) {
 		ruleNameRepository.deleteById(id);
 	}

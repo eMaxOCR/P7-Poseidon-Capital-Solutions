@@ -12,8 +12,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration 			//Spring detect this class has configuration class.
-@EnableWebSecurity 		//Enable web security.
-@EnableMethodSecurity   //Enable ROLE access
+@EnableWebSecurity 		//Enable web security session based.
+@EnableMethodSecurity   //Enable ROLE access.
 public class SpringSecurityAuthApplication {
 	
 	@Autowired
@@ -22,13 +22,19 @@ public class SpringSecurityAuthApplication {
 	
 	@Bean
 	/**
-	 * Configuration bean that defines the entire security behavior of your application.
-	 * It's like a director
-	 * */ 
+	 * Configures the security filter chain for the application.
+	 *
+	 * This method defines the security behavior, including which URLs are public,
+	 * the custom login page, and the redirection paths after authentication or logout.
+	 *
+	 * @param http the HttpSecurity object to configure.
+	 * @return the configured SecurityFilterChain.
+	 * @throws Exception if an error occurs during configuration.
+	 **/
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 		return http.authorizeHttpRequests(auth -> {
-			auth.requestMatchers("/admin").hasRole("ADMIN"); 	//Define admin and his role
-			auth.requestMatchers("/user").hasRole("USER");		//Define user and his role
+			//auth.requestMatchers("/admin").hasRole("ADMIN"); 	//Define admin and his role
+			//auth.requestMatchers("/user").hasRole("USER");		//Define user and his role
 			auth.requestMatchers("/app/signup", "/app/login", "/401", "/403", "/404", "/500", "/css/**", "/js/**", "/images/**", "/error").permitAll();
 			auth.anyRequest().authenticated(); 					//for http"s".
 		}).formLogin(form -> form
@@ -49,8 +55,13 @@ public class SpringSecurityAuthApplication {
 	
 	@Bean
 	/**
-	 * Encrypt password
-	 * */
+	 * Creates and configures a bean for password encoding.
+	 *
+	 * This method uses the strong BCrypt hashing algorithm to securely
+	 * encode passwords before they are stored in the database.
+	 *
+	 * @return an instance of BCryptPasswordEncoder.
+	 **/
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
@@ -58,8 +69,17 @@ public class SpringSecurityAuthApplication {
 	
 	@Bean
 	/**
-	 * Manage authentication sources
-	 * */
+	 * Creates and configures the Authentication Manager.
+	 *
+	 * This bean is the main component responsible for handling the authentication process.
+	 * It uses the provided user details service and password encoder to validate
+	 * a user's credentials during login.
+	 *
+	 * @param http the HttpSecurity object used to get the shared AuthenticationManagerBuilder.
+	 * @param bCryptPasswordEncoder the password encoder service used to check the password.
+	 * @return a configured AuthenticationManager instance.
+	 * @throws Exception if an error occurs while creating the AuthenticationManager.
+	 **/
 	public AuthenticationManager authenticationManager(HttpSecurity http, BCryptPasswordEncoder bCryptPasswordEncoder) throws Exception {
 	    AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
 	authenticationManagerBuilder.userDetailsService(customUserDetailsService).passwordEncoder(bCryptPasswordEncoder);

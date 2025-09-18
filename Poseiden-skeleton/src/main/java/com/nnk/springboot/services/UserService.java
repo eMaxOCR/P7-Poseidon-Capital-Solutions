@@ -19,9 +19,12 @@ public class UserService {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
+
 	/**
-	 * Get logged user's informations.
-	 * */
+	 * Gets the information of the currently logged-in user.
+	 *
+	 * @return the User object of the logged-in user.
+	 */
 	public User getCurrentUser() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
@@ -30,37 +33,42 @@ public class UserService {
 	}
 	
 	/**
-	 * Find all users.
-	 * @return List of users.
-	 * */
+	 * Finds all users in the database.
+	 *
+	 * @return a list of all User objects.
+	 */
 	public List<User> findAll(){
 		return userRepository.findAll();
 	}
 	
 	
 	/**
-	 * Find user by id
-	 * @param User's id
-	 * @return User
-	 * */
+	 * Finds a user by their ID.
+	 *
+	 * @param id the user's ID.
+	 * @return an Optional object containing the found user, or an empty Optional if not found.
+	 */
 	public Optional<User> findById(Integer id){
 		return userRepository.findById(id);
 	}
 	
 	/**
-	 * Save User into data base
-	 * @param User
-	 * @return User
-	 * */
+	 * Saves a user to the database.
+	 *
+	 * @param user the User object to be saved.
+	 * @return the saved User object.
+	 */
 	public User save(User user){
 		return userRepository.save(user);
 	}
 	
 	/**
-	 * Making User and put informations before saving.
-	 * @param User
-	 * @return User
-	 * */
+	 * Prepares and validates a new user before saving.
+	 * The method sets the default role to "USER" and encodes the password.
+	 *
+	 * @param user the User object to be validated and saved.
+	 * @return the validated and saved User object.
+	 */
 	public User validate(User user){
 			
 		User newUser = user;
@@ -71,10 +79,11 @@ public class UserService {
 	}
 	
 	/**
-	 * Update user's informations.
-	 * @param User
-	 * @return User
-	 * */
+	 * Updates the information of an existing user.
+	 *
+	 * @param user the User object with the new information.
+	 * @return the updated and saved User object.
+	 */
 	public User update(User user){
 			
 		User newUser = user;
@@ -90,9 +99,10 @@ public class UserService {
 	}
 	
 	/**
-	 * Delete user.
-	 * @param User.
-	 * */
+	 * Deletes a user from the database.
+	 *
+	 * @param user the User object to be deleted.
+	 */
 	public void deleteUser(User user){
 		userRepository.delete(user);
 	}

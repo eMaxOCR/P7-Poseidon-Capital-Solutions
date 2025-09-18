@@ -25,8 +25,11 @@ public class RuleController {
 	private UserService userService;
 
 	/**
-	 * Show rule list
-	 * */
+	 * Displays the list of all rules.
+	 *
+	 * @param model the Model object to pass data to the view (HTML).
+	 * @return the view name "rulename/list" to display the list.
+	 */
     @RequestMapping("/rulename/list")
     public String home(Model model)
     {
@@ -35,18 +38,27 @@ public class RuleController {
         
         return "rulename/list";
     }
-
+ 
     /**
-	 * Show rule's add form
-	 * */
+   	 * Displays the form to add a new rule.
+   	 *
+   	 * @param bid an empty RuleName object, created by Spring, for the form.
+   	 * @return the view name "rulename/add" which contains the form.
+   	 */
     @GetMapping("/rulename/add")
     public String addRuleForm(RuleName bid) {
         return "rulename/add";
     }
 
     /**
-	 * Add rule
-	 * */
+	 * Validates and saves a new rule submitted by the form.
+	 *
+	 * @param ruleName the RuleName object populated with the form data.
+	 * @param result the object that holds the validation results.
+	 * @param model the Model object.
+	 * @return a redirect to the list of rules if validation is successful,
+	 * otherwise, returns to the add form.
+	 */
     @PostMapping("/rulename/validate")
     public String validate(@Valid RuleName ruleName, BindingResult result, Model model) {
     	if (result.hasErrors()) {
@@ -58,17 +70,28 @@ public class RuleController {
     }
 
     /**
-	 * Show rule's update form 
-	 * */
+	 * Displays the update form for a specific rule.
+	 *
+	 * @param id the ID of the rule to modify, taken from the URL.
+	 * @param model the Model object to pass the rule's data to the view.
+	 * @return the view name "rulename/update" which contains the form.
+	 */
     @GetMapping("/rulename/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
     	model.addAttribute("ruleName", ruleNameService.getRuleNameById(id));
         return "rulename/update";
     }
 
+
     /**
-	 * Update rule
-	 * */
+	 * Handles the form submission to update a rule.
+	 *
+	 * @param id the ID of the rule to update, taken from the URL.
+	 * @param ruleName the RuleName object populated with the new form data.
+	 * @param result the object that holds the validation results.
+	 * @param model the Model object.
+	 * @return a redirect to the list of rules after the update.
+	 */
     @PostMapping("/rulename/update/{id}")
     public String updateRuleName(@PathVariable("id") Integer id, @Valid RuleName ruleName,
                              BindingResult result, Model model) {
@@ -77,8 +100,12 @@ public class RuleController {
     }
 
     /**
-	 * Delete rule
-	 * */
+   	 * Deletes a rule from the database.
+   	 *
+   	 * @param id the ID of the rule to delete, taken from the URL.
+   	 * @param model the Model object.
+   	 * @return a redirect to the list of rules after the deletion.
+   	 */
     @GetMapping("/rulename/delete/{id}")
     public String deleteRuleName(@PathVariable("id") Integer id, Model model) {
     	ruleNameService.deleteRuleName(id);

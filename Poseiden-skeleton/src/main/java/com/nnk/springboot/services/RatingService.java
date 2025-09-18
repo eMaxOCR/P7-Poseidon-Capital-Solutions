@@ -13,29 +13,40 @@ public class RatingService {
 	private RatingRepository ratingRepository;
 		
 	/**
-	 * Save Rating into data base
-	 * */
+	 * Saves a rating to the database.
+	 *
+	 * @param rating the Rating object to be saved.
+	 * @return the saved Rating object.
+	 */
 	public Rating save(Rating rating){
 		return ratingRepository.save(rating);
 	}
 	
 	/**
-	 * Find Rating by id
-	 * */
+	 * Finds a rating by its ID.
+	 *
+	 * @param id the ID of the rating to find.
+	 * @return the found Rating object.
+	 */
 	public Rating getRatingById(Integer id){
 		return ratingRepository.getReferenceById(id);
 	}
 	
 	/**
-	 * Search all Rating
-	 * */
+	 * Finds all ratings in the database.
+	 *
+	 * @return a list of all Rating objects.
+	 */
 	public List<Rating> getAllRatings(){
 		return ratingRepository.findAll();
 	}
 	
 	/**
-	 * Making rating and put informations before saving.
-	 * */
+	 * Prepares a rating's information before saving it.
+	 *
+	 * @param rating the Rating object to be validated and saved.
+	 * @return the validated Rating object.
+	 */
 	public Rating validate(Rating rating){
 		
 		Rating newRating = new Rating();
@@ -49,9 +60,10 @@ public class RatingService {
 	}
 	
 	/**
-	 * Update Rating.
-	 * @Param Rating
-	 * */
+	 * Updates the information of an existing rating.
+	 *
+	 * @param rating the Rating object with the new information.
+	 */
 	public void update(Rating rating){
 		Rating newRating = rating;								//This rating contain new informations
 		Rating currentRating = getRatingById(rating.getId());	//This rating have "old" informations
@@ -67,8 +79,10 @@ public class RatingService {
 	}
 	
 	/**
-	 * Delete rating
-	 * */
+	 * Deletes a rating from the database using its ID.
+	 *
+	 * @param id the ID of the rating to delete.
+	 */
 	public void deleteRating(Integer id) {
 		ratingRepository.deleteById(id);
 	}

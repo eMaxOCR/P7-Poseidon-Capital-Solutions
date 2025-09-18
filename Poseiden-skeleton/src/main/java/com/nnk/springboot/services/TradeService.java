@@ -16,36 +16,41 @@ public class TradeService {
 	private UserService userService;
 		
 	/**
-	 * Save Trade into data base
-	 * @param Trade
-	 * @return Trade
-	 * */
+	 * Saves a trade to the database.
+	 *
+	 * @param trade the Trade object to be saved.
+	 * @return the saved Trade object.
+	 */
 	public Trade save(Trade trade){
 		return tradeRepository.save(trade);
 	}
 	
 	/**
-	 * Find Trade by id
-	 * @param Trade
-	 * @return Trade
-	 * */
+	 * Finds a trade by its ID.
+	 *
+	 * @param id the ID of the trade to find.
+	 * @return the found Trade object.
+	 */
 	public Trade getTradeById(Integer id){
 		return tradeRepository.getReferenceById(id);
 	}
 	
 	/**
-	 * Search all Trade
-	 * @return Trade list
-	 * */
+	 * Finds all trades in the database.
+	 *
+	 * @return a list of all Trade objects.
+	 */
 	public List<Trade> getAllTrades(){
 		return tradeRepository.findAll();
 	}
 	
 	/**
-	 * Making rating and put informations before saving.
-	 * @param Trade
-	 * @return Trade
-	 * */
+	 * Prepares and validates a new trade before saving it.
+	 * The method adds the creation date and the user's name.
+	 *
+	 * @param trade the Trade object to be validated and saved.
+	 * @return the validated trade.
+	 */
 	public Trade validate(Trade trade){
 		
 		Trade newTrade = trade;
@@ -58,9 +63,12 @@ public class TradeService {
 	}
 	
 	/**
-	 * Update Trade.
-	 * @Param Trade
-	 * */
+	 * Updates the information of an existing trade.
+	 * The method gets the current trade and updates some of its information
+	 * with the new data from the provided trade.
+	 *
+	 * @param trade the Trade object with the new information.
+	 */
 	public void update(Trade trade){
 								
 		Trade currentTrade = getTradeById(trade.getTradeId());	//This trade have "old" informations
@@ -93,9 +101,10 @@ public class TradeService {
 	}
 	
 	/**
-	 * Delete rating
-	 * @param Trade id
-	 * */
+	 * Deletes a trade from the database.
+	 *
+	 * @param id the ID of the trade to delete.
+	 */
 	public void deleteTrade(Integer id) {
 		tradeRepository.deleteById(id);
 	}

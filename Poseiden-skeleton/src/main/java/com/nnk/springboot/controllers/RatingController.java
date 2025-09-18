@@ -23,8 +23,11 @@ public class RatingController {
 	private UserService userService;
 
 	/**
-	 * Show rating list
-	 * */
+	 * Displays the list of all ratings.
+	 *
+	 * @param model the Model object used to pass data to the view (HTML).
+	 * @return the name of the view "rating/list" to display the rating list.
+	 */
     @RequestMapping("/rating/list")
     public String home(Model model)
     {
@@ -35,39 +38,57 @@ public class RatingController {
     }
 
     /**
-	 * Show rating's add form
-	 * */
+	 * Displays the form to add a new rating.
+	 *
+	 * @param rating an empty Rating object for the form.
+	 * @return the name of the view "rating/add" which contains the form.
+	 */
     @GetMapping("/rating/add")
     public String addRatingForm(Rating rating) {
         return "rating/add";
     }
     
     /**
-	 * Add rating
-	 * */
+	 * Validates and saves a new rating submitted via the form.
+	 *
+	 * @param rating the Rating object populated with form data. Validation is applied.
+	 * @param result the object that holds the validation results.
+	 * @param model the Model object.
+	 * @return a redirect to the rating list if validation is successful,
+	 * otherwise, it returns to the add form.
+	 */
     @PostMapping("/rating/validate")
     public String validate(@Valid Rating rating, BindingResult result, Model model) {
  
-		if(!result.hasErrors()) {
-			ratingService.validate(rating);
-		return "redirect:/rating/list";
+		if(result.hasErrors()) {
+		return "rating/add";
 		}
-
-        return "rating/add";
+		
+		ratingService.validate(rating);
+        return "redirect:/rating/list";
     }
     
     /**
-	 * Show rating's update form
-	 * */
+	 * Displays the update form for a specific rating.
+	 *
+	 * @param id the ID of the rating to be updated, taken from the URL path.
+	 * @param model the Model object to pass the rating's data to the view.
+	 * @return the name of the view "rating/update" which contains the pre-filled form.
+	 */
     @GetMapping("/rating/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
     	model.addAttribute("rating", ratingService.getRatingById(id));
         return "rating/update";
     }
-
     /**
-	 * Update rating
-	 * */
+	 * Handles the form submission to update a rating.
+	 *
+	 * @param id the ID of the rating to update, taken from the URL path.
+	 * @param rating the Rating object populated with the new form data.
+	 * @param result the object that holds the validation results.
+	 * @param model the Model object.
+	 * @return a redirect to the rating list after a successful update.
+	 */
     @PostMapping("/rating/update/{id}")
     public String updateRating(@PathVariable("id") Integer id, @Valid Rating rating,
                              BindingResult result, Model model) {
@@ -76,8 +97,12 @@ public class RatingController {
     }
     
     /**
-	 * Delete rating
-	 * */
+	 * Deletes a rating from the database.
+	 *
+	 * @param id the ID of the rating to delete, taken from the URL path.
+	 * @param model the Model object.
+	 * @return a redirect to the rating list after the deletion.
+	 */
     @GetMapping("/rating/delete/{id}")
     public String deleteRating(@PathVariable("id") Integer id, Model model) {
     	ratingService.deleteRating(id);

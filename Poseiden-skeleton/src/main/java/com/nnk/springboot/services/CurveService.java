@@ -15,27 +15,30 @@ public class CurveService {
 	
 	
 	/**
-	 * Save CurvePoint into data base
-	 * @param CurvePoint
-	 * @return CurvePoint
-	 * */
+	 * Saves a curve point to the database.
+	 *
+	 * @param curvePoint the CurvePoint object to be saved.
+	 * @return the saved CurvePoint object.
+	 */
 	public CurvePoint save(CurvePoint curvePoint){
 		return curvePointRepository.save(curvePoint);
 	}
 	
 	/**
-	 * Find CurvePoint by id
-	 * @param CurvePoint's Id
-	 * @return CurvePoint
-	 * */
+	 * Finds a curve point by its ID.
+	 *
+	 * @param id the ID of the curve point to find.
+	 * @return the found CurvePoint object.
+	 */
 	public CurvePoint getCurvePointById(Integer id){
 		return curvePointRepository.getReferenceById(id);
 	}
 	
 	/**
-	 * Search all curve points
-	 * @return CurvePoint List
-	 * */
+	 * Finds all curve points in the database.
+	 *
+	 * @return a list of all CurvePoint objects.
+	 */
 	public List<CurvePoint> getAllCurvePoint(){
 		return curvePointRepository.findAll();
 	}
@@ -49,10 +52,11 @@ public class CurveService {
 //	}
 	
 	/**
-	 * Making Curve Point and put informations before saving.
-	 * @param CurvePoint
-	 * @return CurvePoint
-	 * */
+	 * Prepares and validates a new curve point before saving it.
+	 *
+	 * @param curvePoint the CurvePoint object to be validated and saved.
+	 * @return the validated CurvePoint object.
+	 */
 	public CurvePoint validate(CurvePoint curvePoint){
 //		User currentUser = userService.getCurrentUser();
 //		curvePoint.setUser(currentUser);
@@ -68,9 +72,10 @@ public class CurveService {
 	}
 	
 	/**
-	 * Update Curve Point.
-	 * @Param curvepoint
-	 * */
+	 * Updates the information of an existing curve point.
+	 *
+	 * @param curvePoint the CurvePoint object with the new information.
+	 */
 	public void update(CurvePoint curvePoint){
 		CurvePoint newCurvePointInfo = curvePoint;								//This curvePoint contain new informations
 		CurvePoint currentCurvePoint = getCurvePointById(curvePoint.getId());	//This curvePoint have "old" informations
@@ -99,9 +104,10 @@ public class CurveService {
 	
 	
 	/**
-	 * Delete Curve Point.
-	 * @Param CurvePoint's ID
-	 * */
+	 * Deletes a curve point from the database using its ID.
+	 *
+	 * @param id the ID of the curve point to be deleted.
+	 */
 	public void deleteCurvePoint(Integer id) {
 		CurvePoint curvePointToDelete = getCurvePointById(id);
 		curvePointRepository.deleteById(curvePointToDelete.getId());

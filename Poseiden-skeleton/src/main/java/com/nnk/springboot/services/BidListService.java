@@ -18,36 +18,41 @@ public class BidListService {
 	
 		
 	/**
-	 * Save Bid into data base
-	 * @param Bid
-	 * @return Bid
-	 * */
+	 * Saves a bid to the database.
+	 *
+	 * @param bid the Bid object to be saved.
+	 * @return the saved Bid object.
+	 */
 	public Bid save(Bid bid){
 		return bidRepository.save(bid);
 	}
 	
 	/**
-	 * Find Bid by id
-	 * @param Bid's ID (Integer)
-	 * @return Bid
-	 * */
+	 * Finds a Bid by its ID.
+	 *
+	 * @param id the ID of the Bid to find.
+	 * @return the found Bid object.
+	 */
 	public Bid getBidById(Integer id){
 		return bidRepository.getReferenceById(id);
 	}
 	
 	/**
-	 * Search all Bid
-	 * @return Bid List
-	 * */
+	 * Finds all Bids in the database.
+	 *
+	 * @return a list of all Bid objects.
+	 */
 	public List<Bid> getAllBids(){
 		return bidRepository.findAll();
 	}
 	
 	/**
-	 * Making bid and put informations before saving.
-	 * @param Bid
-	 * @return Bid
-	 * */
+	 * Validates and prepares a new Bid before saving it.
+	 * It sets the creation date and the full name of the current user.
+	 *
+	 * @param bid the Bid object to be validated and saved.
+	 * @return the validated Bid object.
+	 */
 	public Bid validate(Bid bid){
 		
 		LocalDateTime now = LocalDateTime.now();
@@ -60,9 +65,12 @@ public class BidListService {
 	}
 	
 	/**
-	 * Update Bid.
-	 * @Param Bid
-	 * */
+	 * Updates an existing Bid in the database.
+	 * It takes the updated information and saves it to the existing bid.
+	 * It also sets the revision date and the name of the user who made the change.
+	 *
+	 * @param bid the Bid object with the updated information.
+	 */
 	public void update(Bid bid){
 		Bid newBid = bid;									//This bid contain new informations
 		Bid currentBid = getBidById(bid.getBidListId());	//This bid have "old" informations
@@ -83,8 +91,10 @@ public class BidListService {
 	}
 	
 	/**
-	 * Delete bid
-	 * */
+	 * Deletes a Bid from the database using its ID.
+	 *
+	 * @param id the ID of the Bid to be deleted.
+	 */
 	public void deleteBid(Integer id) {
 		bidRepository.deleteById(id);
 	}
