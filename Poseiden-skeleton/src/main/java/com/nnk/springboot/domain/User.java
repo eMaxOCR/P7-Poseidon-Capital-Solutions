@@ -8,12 +8,10 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 @Entity
-@Getter
-@Setter
+@Data
 @Table(name = "users")
 public class User {
 	 
@@ -26,7 +24,7 @@ public class User {
     
     @NotBlank(message = "Password is mandatory")
     @Size(min = 8, message = "Le mot de passe doit avoir au moins 8 caractères")
-    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&+=]).{8,}$", message = "Le mot de passe doit contenir au moins 8 caractères, un chiffre, une minuscule, une majuscule et un caractère spécial.")
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&+=]).{8,}$", message = "Le mot de passe doit contenir au minimum un chiffre, une minuscule, une majuscule et un caractère spécial.")
     private String password;
     
     @NotBlank(message = "FullName is mandatory")

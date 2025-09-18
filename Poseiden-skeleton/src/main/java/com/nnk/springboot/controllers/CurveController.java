@@ -21,7 +21,7 @@ public class CurveController {
 	
 	@Autowired
 	private UserService userService;
-
+ 
 	/**
 	 * Show curve point list
 	 * */

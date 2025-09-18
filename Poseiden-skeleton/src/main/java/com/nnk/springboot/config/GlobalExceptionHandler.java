@@ -11,14 +11,14 @@ public class GlobalExceptionHandler {
 	 * */
 	@ExceptionHandler(ResourceNotFoundException.class)
     public String notFoundException(ResourceNotFoundException ex) {
-        return "redirect:/404";
+        return "404";
     }
 	
 	/**
 	 * Error 500 : Internal server error
 	 * */
 	@ExceptionHandler(Exception.class)
-    public String exception(Exception ex) {
-        return "redirect:/500";
+    public String exceptionHandler(Exception ex) {
+        return "500";
     }
 }

@@ -6,11 +6,18 @@ import org.springframework.stereotype.Service;
 import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.repositories.RuleNameRepository;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+
 @Service
+@RequiredArgsConstructor
+//@Setter
+//@Getter
 public class RuleNameService {
 	
-	@Autowired
-	private RuleNameRepository ruleNameRepository;
+	//@Autowired
+	private final RuleNameRepository ruleNameRepository;
 
 	
 	/**
@@ -52,7 +59,7 @@ public class RuleNameService {
 	 * Update RuleName.
 	 * @Param RuleName
 	 * */
-	public void updateRuleName(RuleName ruleName){
+	public RuleName updateRuleName(RuleName ruleName){
 		RuleName newRuleName = ruleName;								//This curvePoint contain new informations
 		RuleName currentRuleName = getRuleNameById(ruleName.getId());	//This curvePoint have "old" informations
 
@@ -63,7 +70,7 @@ public class RuleNameService {
 	    currentRuleName.setSqlPart(newRuleName.getSqlPart());
 	    currentRuleName.setSqlStr(newRuleName.getSqlStr());
 
-	    save(currentRuleName);
+	    return save(currentRuleName);
 		
 	}
 	

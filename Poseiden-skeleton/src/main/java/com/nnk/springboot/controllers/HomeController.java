@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.nnk.springboot.config.ResourceNotFoundException;
+
 @Controller
 public class HomeController
 {
@@ -22,13 +24,13 @@ public class HomeController
 	@RequestMapping("/404")
 	public String error(Model model)
 	{
-		return "404";
+		throw new ResourceNotFoundException("Erreur de test");
 	}
 	
 	@RequestMapping("/500")
-	public String internalServeurError(Model model)
+	public String internalServeurError(Model model) 
 	{
-		return "500";
+		return"500";
 	}
 	
 }
