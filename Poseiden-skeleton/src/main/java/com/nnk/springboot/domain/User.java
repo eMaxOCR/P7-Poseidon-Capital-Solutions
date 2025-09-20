@@ -1,5 +1,6 @@
 package com.nnk.springboot.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,12 +15,13 @@ import lombok.Data;
 @Data
 @Table(name = "users")
 public class User {
-	 
+	
     @Id 
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
     
     @NotBlank(message = "Username is mandatory")
+    @Column(unique = true)
     private String username;
     
     @NotBlank(message = "Password is mandatory")

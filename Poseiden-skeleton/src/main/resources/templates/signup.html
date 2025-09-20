@@ -27,6 +27,8 @@
 						<input type="text" th:field="*{fullname}" class="col-4" required>
 					</div>
 					<label class="col-sm-2 control-label">Username</label>
+					<br>
+					<span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger"></span>
 					<div class="col-sm-10">
 						<input type="text" th:field="*{username}" class="col-4" required>
 					</div>

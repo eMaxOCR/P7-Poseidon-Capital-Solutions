@@ -58,10 +58,10 @@ public class BidListService {
 		LocalDateTime now = LocalDateTime.now();
 		Bid newBid = bid;
 		
-		bid.setCreationDate(now);
-		bid.setCreationName(userService.getCurrentUser().getFullname());
+		newBid.setCreationDate(now);
+		newBid.setCreationName(userService.getCurrentUser().getFullname());
 		
-		return save(bid);
+		return save(newBid);
 	}
 	
 	/**

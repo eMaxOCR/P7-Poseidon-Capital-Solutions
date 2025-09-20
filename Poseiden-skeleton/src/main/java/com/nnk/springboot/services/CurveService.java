@@ -77,7 +77,7 @@ public class CurveService {
 	 * @param curvePoint the CurvePoint object with the new information.
 	 */
 	public void update(CurvePoint curvePoint){
-		CurvePoint newCurvePointInfo = curvePoint;								//This curvePoint contain new informations
+		//CurvePoint newCurvePointInfo = curvePoint;								//This curvePoint contain new informations
 		CurvePoint currentCurvePoint = getCurvePointById(curvePoint.getId());	//This curvePoint have "old" informations
 		
 		//Checking for curve id

@@ -3,10 +3,13 @@ package com.nnk.springboot.services;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.UserRepository;
 
@@ -62,6 +65,7 @@ public class UserService {
 		return userRepository.save(user);
 	}
 	
+	
 	/**
 	 * Prepares and validates a new user before saving.
 	 * The method sets the default role to "USER" and encodes the password.
@@ -70,12 +74,16 @@ public class UserService {
 	 * @return the validated and saved User object.
 	 */
 	public User validate(User user){
-			
-		User newUser = user;
-		newUser.setRole("USER");
-		newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
 		
-		return save(newUser);
+		if (userRepository.findByUsername(user.getUsername()).isPresent()) {
+	        throw new DataIntegrityViolationException("Username déjà utilisé");
+	    }
+		
+	    user.setRole("USER");
+	    user.setPassword(passwordEncoder.encode(user.getPassword()));
+	    
+	    return save(user);
+			
 	}
 	
 	/**

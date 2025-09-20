@@ -1,8 +1,9 @@
 package com.nnk.springboot.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,11 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.nnk.springboot.domain.User;
-import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.services.UserService;
-
 import jakarta.validation.Valid;
 
 @Controller
@@ -60,9 +58,17 @@ public class UserController {
     @PostMapping("/user/validate")
     public String validate(@Valid User user, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return "/user/add";
+            return "user/add";
         }
-        userService.validate(user);
+
+        try {
+            userService.validate(user);
+        } catch (DataIntegrityViolationException e) {
+            result.rejectValue("username", "error.user", "Ce nom d'utilisateur est déjà utilisé.");
+            model.addAttribute("user", user); // <-- important
+            return "user/add";
+        }
+
         return "redirect:/user/list";
     }
 

@@ -7,6 +7,7 @@ import com.nnk.springboot.services.UserService;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -59,13 +60,20 @@ public class LoginController {
 	 * @return a redirect to the bid list if the signup is successful; otherwise, it returns to the signup form.
 	 */
     @PostMapping("/signup")
-    public String signup(@Valid User user,BindingResult result, Model model ) {
-    	if (result.hasErrors()) {
-    		 result.getAllErrors().forEach(System.out::println);
+    public String signup(@Valid User user, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+        	model.addAttribute("user", user);
             return "signup"; 
         }
 
-    	userService.validate(user); 
+        try {
+            userService.validate(user);
+        }catch (DataIntegrityViolationException e) {
+            result.rejectValue("username", "error.user", "Ce nom d'utilisateur est déjà utilisé.");
+            model.addAttribute("user", user); 
+            return "signup";
+        }
+
         return "redirect:/bidlist/list";
     }
     
